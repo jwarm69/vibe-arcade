@@ -3,11 +3,12 @@
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { useFrame, useThree } from '@react-three/fiber';
 import { PointerLockControls } from '@react-three/drei';
-import { Vector3 } from 'three';
+import { Vector3, Euler } from 'three';
 import { useKeyboard } from '@/hooks/useKeyboard';
 import { useProximity } from '@/hooks/useProximity';
 import { useSfx } from '@/hooks/useSfx';
 import { useArcadeStore } from '@/hooks/useArcadeStore';
+import { touchState } from '@/lib/touchState';
 import { PLAYER_SPEED, PLAYER_HEIGHT, FRICTION } from '@/lib/constants';
 import type { GameEntry } from '@/types';
 import type { PointerLockControls as PointerLockControlsImpl } from 'three-stdlib';
@@ -16,6 +17,9 @@ const _velocity = new Vector3();
 const _direction = new Vector3();
 const _frontVector = new Vector3();
 const _sideVector = new Vector3();
+const _euler = new Euler(0, 0, 0, 'YXZ');
+
+const TOUCH_LOOK_SENSITIVITY = 0.004;
 
 interface PlayerControllerProps {
   games: GameEntry[];
@@ -79,12 +83,26 @@ export function PlayerController({ games }: PlayerControllerProps) {
   useFrame((_, delta) => {
     const currentMode = useArcadeStore.getState().mode;
     if (currentMode !== 'ARCADE') return;
-    if (!locked) return;
 
+    // On desktop, require pointer lock; on mobile, always active
+    if (!locked && !touchState.isMobile) return;
+
+    // ── Touch look (mobile) ──
+    if (touchState.isMobile) {
+      _euler.setFromQuaternion(camera.quaternion);
+      _euler.y -= touchState.lookDelta.x * TOUCH_LOOK_SENSITIVITY;
+      _euler.x -= touchState.lookDelta.y * TOUCH_LOOK_SENSITIVITY;
+      _euler.x = Math.max(-Math.PI / 3, Math.min(Math.PI / 3, _euler.x));
+      camera.quaternion.setFromEuler(_euler);
+      touchState.lookDelta.x = 0;
+      touchState.lookDelta.y = 0;
+    }
+
+    // ── Movement (keyboard + touch merged) ──
     const { forward, backward, left, right } = keys.current;
 
-    _frontVector.set(0, 0, Number(backward) - Number(forward));
-    _sideVector.set(Number(left) - Number(right), 0, 0);
+    _frontVector.set(0, 0, Number(backward) - Number(forward) + touchState.move.y);
+    _sideVector.set(Number(left) - Number(right) - touchState.move.x, 0, 0);
 
     _direction
       .subVectors(_frontVector, _sideVector)
@@ -103,9 +121,9 @@ export function PlayerController({ games }: PlayerControllerProps) {
     camera.position.z = Math.max(-14, Math.min(14, camera.position.z));
   });
 
-  // Don't render PointerLockControls when not in ARCADE mode
-  // This prevents the canvas from stealing clicks from the iframe
+  // Don't render PointerLockControls when not in ARCADE mode or on mobile
   if (mode !== 'ARCADE') return null;
+  if (touchState.isMobile) return null;
 
   return (
     <PointerLockControls

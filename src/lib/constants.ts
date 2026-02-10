@@ -9,6 +9,6 @@ export const CABINET_DEPTH = 0.6;
 export const SCREEN_HEIGHT = 0.6;
 export const SCREEN_Y_OFFSET = 0.3;
 export const FOG_NEAR = 5;
-export const FOG_FAR = 25;
+export const FOG_FAR = 30;
 export const FOG_COLOR = '#000a00';
 export const FLOOR_SIZE = 30;

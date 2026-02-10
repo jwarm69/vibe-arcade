@@ -4,9 +4,9 @@ import { Text } from '@react-three/drei';
 
 export function NeonSign() {
   return (
-    <group position={[0, 4, -8]}>
+    <group position={[0, 5, -10]}>
       <Text
-        fontSize={1}
+        fontSize={2.5}
         color="#00ff41"
         anchorX="center"
         anchorY="middle"
@@ -18,10 +18,27 @@ export function NeonSign() {
         <meshStandardMaterial
           color="#00ff41"
           emissive="#00ff41"
-          emissiveIntensity={2}
+          emissiveIntensity={3}
           toneMapped={false}
         />
       </Text>
+      <Text
+        position={[0, -1.2, 0]}
+        fontSize={0.35}
+        color="#ffffff"
+        anchorX="center"
+        anchorY="middle"
+        font="/fonts/Inter-Bold.woff"
+      >
+        Presented by Warman Consulting
+        <meshStandardMaterial
+          color="#ffffff"
+          emissive="#ffffff"
+          emissiveIntensity={1}
+          toneMapped={false}
+        />
+      </Text>
+      <pointLight color="#00ff41" intensity={4} distance={15} />
     </group>
   );
 }
