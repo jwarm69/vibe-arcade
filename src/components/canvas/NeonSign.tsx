@@ -10,7 +10,6 @@ export function NeonSign() {
         color="#00ff41"
         anchorX="center"
         anchorY="middle"
-        font="/fonts/Inter-Bold.woff"
         outlineWidth={0.02}
         outlineColor="#00ff41"
       >
@@ -28,7 +27,6 @@ export function NeonSign() {
         color="#ffffff"
         anchorX="center"
         anchorY="middle"
-        font="/fonts/Inter-Bold.woff"
       >
         Presented by Warman Consulting
         <meshStandardMaterial
