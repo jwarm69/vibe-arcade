@@ -1,6 +1,7 @@
 'use client';
 
 import { Suspense } from 'react';
+import { Sparkles } from '@react-three/drei';
 import { ArcadeFloor } from './ArcadeFloor';
 import { Cabinet } from './Cabinet';
 import { NeonSign } from './NeonSign';
@@ -37,6 +38,16 @@ export function ArcadeScene({ games }: ArcadeSceneProps) {
       ))}
 
       <PlayerController games={games} />
+
+      {/* Faint floating green motes */}
+      <Sparkles
+        count={40}
+        scale={[20, 8, 20]}
+        size={1.5}
+        speed={0.2}
+        opacity={0.15}
+        color="#00ff41"
+      />
     </>
   );
 }

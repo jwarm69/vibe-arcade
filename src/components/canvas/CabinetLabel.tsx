@@ -14,7 +14,7 @@ export function CabinetLabel({ title, author, visible }: CabinetLabelProps) {
 
   return (
     <Html
-      position={[0, CABINET_HEIGHT / 2 + 0.4, 0]}
+      position={[0, CABINET_HEIGHT / 2 + 0.25, 0]}
       center
       distanceFactor={4}
       style={{ pointerEvents: 'none' }}
