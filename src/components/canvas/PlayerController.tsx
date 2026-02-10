@@ -28,6 +28,7 @@ export function PlayerController({ games }: PlayerControllerProps) {
   const { playBloop, playStart } = useSfx();
   const { setSfxCallback } = useProximity(games);
   const [locked, setLocked] = useState(false);
+  const mode = useArcadeStore((s) => s.mode);
 
   // Wire SFX
   useEffect(() => {
@@ -48,35 +49,36 @@ export function PlayerController({ games }: PlayerControllerProps) {
     camera.position.set(0, PLAYER_HEIGHT, 5);
   }, [camera]);
 
-  // Handle pointer lock based on mode
+  // Release pointer lock immediately when leaving ARCADE mode
   useEffect(() => {
-    return useArcadeStore.subscribe((state, prev) => {
-      if (state.mode === 'PLAYING' && prev.mode === 'ARCADE') {
-        // Release pointer lock when starting game
-        controlsRef.current?.unlock();
-      }
-      if (state.mode === 'ARCADE' && prev.mode !== 'ARCADE') {
-        // Re-acquire pointer lock when returning to arcade
-        // Note: needs user gesture, so we set a flag
-        setLocked(false);
-      }
-    });
+    if (mode !== 'ARCADE') {
+      controlsRef.current?.unlock();
+      document.exitPointerLock?.();
+    }
+  }, [mode]);
+
+  const handleLock = useCallback(() => {
+    // Only allow locking in ARCADE mode
+    const currentMode = useArcadeStore.getState().mode;
+    if (currentMode !== 'ARCADE') {
+      controlsRef.current?.unlock();
+      return;
+    }
+    setLocked(true);
   }, []);
 
-  const handleLock = useCallback(() => setLocked(true), []);
   const handleUnlock = useCallback(() => {
     setLocked(false);
-    // If we're in ARCADE mode and lost lock, that's fine
     // If we're in PLAYING mode and lost lock (user pressed Esc), pause
-    const mode = useArcadeStore.getState().mode;
-    if (mode === 'PLAYING') {
+    const currentMode = useArcadeStore.getState().mode;
+    if (currentMode === 'PLAYING') {
       useArcadeStore.getState().pause();
     }
   }, []);
 
   useFrame((_, delta) => {
-    const mode = useArcadeStore.getState().mode;
-    if (mode !== 'ARCADE') return;
+    const currentMode = useArcadeStore.getState().mode;
+    if (currentMode !== 'ARCADE') return;
     if (!locked) return;
 
     const { forward, backward, left, right } = keys.current;
@@ -100,6 +102,10 @@ export function PlayerController({ games }: PlayerControllerProps) {
     camera.position.x = Math.max(-14, Math.min(14, camera.position.x));
     camera.position.z = Math.max(-14, Math.min(14, camera.position.z));
   });
+
+  // Don't render PointerLockControls when not in ARCADE mode
+  // This prevents the canvas from stealing clicks from the iframe
+  if (mode !== 'ARCADE') return null;
 
   return (
     <PointerLockControls

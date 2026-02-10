@@ -5,6 +5,7 @@ import { ArcadeScene } from './ArcadeScene';
 import { HudOverlay } from '@/components/hud/HudOverlay';
 import { GameOverlay } from '@/components/overlay/GameOverlay';
 import { PauseMenu } from '@/components/overlay/PauseMenu';
+import { useArcadeStore } from '@/hooks/useArcadeStore';
 import type { GameEntry } from '@/types';
 
 interface ArcadeCanvasProps {
@@ -12,12 +13,18 @@ interface ArcadeCanvasProps {
 }
 
 export function ArcadeCanvas({ games }: ArcadeCanvasProps) {
+  const mode = useArcadeStore((s) => s.mode);
+  const isPlaying = mode === 'PLAYING' || mode === 'PAUSED';
+
   return (
     <div className="relative h-screen w-screen">
       <Canvas
         dpr={[1, 1.5]}
         camera={{ fov: 70, near: 0.1, far: 100 }}
-        style={{ background: '#000a00' }}
+        style={{
+          background: '#000a00',
+          pointerEvents: isPlaying ? 'none' : 'auto',
+        }}
       >
         <ArcadeScene games={games} />
       </Canvas>
