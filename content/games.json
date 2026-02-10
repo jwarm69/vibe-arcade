@@ -1,0 +1,18 @@
+[
+  {
+    "slug": "curling",
+    "title": "Curling",
+    "author": "Vibe Arcade",
+    "embedUrl": "https://curling-game.vercel.app/",
+    "thumbnail": "/thumbnails/curling.png",
+    "cabinet": { "position": [-2, 0, -5], "rotationY": 0 }
+  },
+  {
+    "slug": "golf-simulator",
+    "title": "Golf Simulator",
+    "author": "Vibe Arcade",
+    "embedUrl": "https://golf-simulator-indol.vercel.app/",
+    "thumbnail": "/thumbnails/golf-simulator.png",
+    "cabinet": { "position": [2, 0, -5], "rotationY": 0 }
+  }
+]
