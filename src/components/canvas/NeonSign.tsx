@@ -4,7 +4,7 @@ import { Text } from '@react-three/drei';
 
 export function NeonSign() {
   return (
-    <group position={[0, 5, -10]}>
+    <group position={[0, 3.5, -6]}>
       <Text
         fontSize={2.5}
         color="#00ff41"
@@ -38,7 +38,7 @@ export function NeonSign() {
           toneMapped={false}
         />
       </Text>
-      <pointLight color="#00ff41" intensity={4} distance={15} />
+      <pointLight color="#00ff41" intensity={6} distance={20} />
     </group>
   );
 }
