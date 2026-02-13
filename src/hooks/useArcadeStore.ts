@@ -1,5 +1,11 @@
 import { create } from 'zustand';
 import type { ArcadeMode, GameEntry } from '@/types';
+import {
+  trackGameStart,
+  trackGamePause,
+  trackGameResume,
+  trackGameExit,
+} from '@/lib/analytics';
 
 interface ArcadeState {
   mode: ArcadeMode;
@@ -30,22 +36,28 @@ export const useArcadeStore = create<ArcadeState>((set, get) => ({
   startPlaying: () => {
     const { mode, focusedGame } = get();
     if (mode !== 'ARCADE' || !focusedGame) return;
+    trackGameStart(focusedGame.slug, focusedGame.title);
     set({ mode: 'PLAYING', activeGame: focusedGame });
   },
 
   pause: () => {
-    if (get().mode !== 'PLAYING') return;
+    const { mode, activeGame } = get();
+    if (mode !== 'PLAYING') return;
+    if (activeGame) trackGamePause(activeGame.slug);
     set({ mode: 'PAUSED' });
   },
 
   resume: () => {
-    if (get().mode !== 'PAUSED') return;
+    const { mode, activeGame } = get();
+    if (mode !== 'PAUSED') return;
+    if (activeGame) trackGameResume(activeGame.slug);
     set({ mode: 'PLAYING' });
   },
 
   returnToArcade: () => {
-    const { mode } = get();
+    const { mode, activeGame } = get();
     if (mode !== 'PAUSED' && mode !== 'PLAYING') return;
+    if (activeGame) trackGameExit(activeGame.slug);
     set({ mode: 'ARCADE', activeGame: null });
   },
 }));

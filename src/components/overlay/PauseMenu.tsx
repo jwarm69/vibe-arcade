@@ -1,6 +1,7 @@
 'use client';
 
 import { useArcadeStore } from '@/hooks/useArcadeStore';
+import { trackOpenInNewTab } from '@/lib/analytics';
 
 export function PauseMenu() {
   const mode = useArcadeStore((s) => s.mode);
@@ -35,6 +36,7 @@ export function PauseMenu() {
             href={activeGame.embedUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackOpenInNewTab(activeGame.slug, activeGame.embedUrl)}
             className="rounded-lg border border-green-400/10 bg-green-400/5 px-4 py-2.5 text-center font-medium text-gray-400 transition hover:bg-green-400/10 hover:text-white"
           >
             Open in New Tab
