@@ -14,5 +14,12 @@
     "embedUrl": "https://golf-simulator-indol.vercel.app/",
     "thumbnail": "/thumbnails/golf-simulator.png",
     "cabinet": { "position": [2, 0, -5], "rotationY": 0 }
+  },
+  {
+    "slug": "paypa-taws",
+    "title": "Paypa Taws",
+    "author": "Vibe Arcade",
+    "embedUrl": "https://paper-toss-pwa.vercel.app",
+    "thumbnail": "/thumbnails/paypa-taws.png"
   }
 ]
