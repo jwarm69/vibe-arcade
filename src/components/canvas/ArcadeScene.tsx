@@ -8,13 +8,14 @@ import { NeonSign } from './NeonSign';
 import { PlayerController } from './PlayerController';
 import { useArcadeStore } from '@/hooks/useArcadeStore';
 import { FOG_COLOR, FOG_NEAR, FOG_FAR } from '@/lib/constants';
-import type { GameEntry } from '@/types';
+import type { ArcadeBounds, PlacedGameEntry } from '@/types';
 
 interface ArcadeSceneProps {
-  games: GameEntry[];
+  games: PlacedGameEntry[];
+  bounds: ArcadeBounds;
 }
 
-export function ArcadeScene({ games }: ArcadeSceneProps) {
+export function ArcadeScene({ games, bounds }: ArcadeSceneProps) {
   const focusedGame = useArcadeStore((s) => s.focusedGame);
 
   return (
@@ -23,7 +24,7 @@ export function ArcadeScene({ games }: ArcadeSceneProps) {
       <ambientLight intensity={0.15} />
       <directionalLight position={[5, 8, 5]} intensity={0.3} color="#004400" />
 
-      <ArcadeFloor />
+      <ArcadeFloor bounds={bounds} />
 
       <Suspense fallback={null}>
         <NeonSign />
@@ -37,7 +38,7 @@ export function ArcadeScene({ games }: ArcadeSceneProps) {
         />
       ))}
 
-      <PlayerController games={games} />
+      <PlayerController games={games} bounds={bounds} />
 
       {/* Faint floating green motes */}
       <Sparkles

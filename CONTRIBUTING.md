@@ -18,6 +18,8 @@
 }
 ```
 
+`cabinet` is optional. If omitted, the game is auto-placed into the scalable multi-room layout.
+
 2. Add a thumbnail image to `public/thumbnails/`
    - Format: PNG
    - Recommended: 512x512
@@ -39,7 +41,7 @@ npm run validate:games
 
 Not all sites allow iframe embedding. Sites with `X-Frame-Options: DENY` or restrictive CSP headers will show the fallback "Open in New Tab" UI. Test your embed URL before adding it.
 
-## Cabinet Positioning
+## Cabinet Positioning (Optional Override)
 
 - Cabinets are placed using `[x, y, z]` coordinates
 - Y should be `0` (floor level)

@@ -37,16 +37,18 @@ for (const game of raw) {
     errors++;
   }
 
-  // Check cabinet position is [x, y, z]
-  if (!Array.isArray(game.cabinet?.position) || game.cabinet.position.length !== 3) {
-    console.error(`Invalid cabinet position for ${game.slug}`);
-    errors++;
-  }
+  if (game.cabinet) {
+    // Check cabinet position is [x, y, z]
+    if (!Array.isArray(game.cabinet.position) || game.cabinet.position.length !== 3) {
+      console.error(`Invalid cabinet position for ${game.slug}`);
+      errors++;
+    }
 
-  // Check rotationY is a number
-  if (typeof game.cabinet?.rotationY !== 'number') {
-    console.error(`Invalid cabinet rotationY for ${game.slug}`);
-    errors++;
+    // Check rotationY is a number
+    if (typeof game.cabinet.rotationY !== 'number') {
+      console.error(`Invalid cabinet rotationY for ${game.slug}`);
+      errors++;
+    }
   }
 }
 

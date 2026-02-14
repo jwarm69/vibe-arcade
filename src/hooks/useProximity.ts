@@ -5,12 +5,12 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { Vector3 } from 'three';
 import { useArcadeStore } from './useArcadeStore';
 import { PROXIMITY_RADIUS, FACING_DOT_THRESHOLD } from '@/lib/constants';
-import type { GameEntry } from '@/types';
+import type { PlacedGameEntry } from '@/types';
 
 const _tempDir = new Vector3();
 const _tempForward = new Vector3();
 
-export function useProximity(games: GameEntry[]) {
+export function useProximity(games: PlacedGameEntry[]) {
   const { camera } = useThree();
   const prevFocused = useRef<string | null>(null);
   const sfxCallback = useRef<(() => void) | null>(null);
@@ -19,7 +19,7 @@ export function useProximity(games: GameEntry[]) {
     const store = useArcadeStore.getState();
     if (store.mode !== 'ARCADE') return;
 
-    let closest: GameEntry | null = null;
+    let closest: PlacedGameEntry | null = null;
     let closestDist = Infinity;
 
     // Camera forward on XZ plane
@@ -28,7 +28,7 @@ export function useProximity(games: GameEntry[]) {
     _tempForward.normalize();
 
     for (const game of games) {
-      const [gx, gy, gz] = game.cabinet.position;
+      const [gx, , gz] = game.cabinet.position;
 
       // Distance check (XZ plane)
       const dx = gx - camera.position.x;

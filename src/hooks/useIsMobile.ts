@@ -1,17 +1,19 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { touchState } from '@/lib/touchState';
 
+function detectMobile() {
+  if (typeof window === 'undefined') return false;
+  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+}
+
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = useMemo(() => detectMobile(), []);
 
   useEffect(() => {
-    const mobile =
-      'ontouchstart' in window || navigator.maxTouchPoints > 0;
-    setIsMobile(mobile);
-    touchState.isMobile = mobile;
-  }, []);
+    touchState.isMobile = isMobile;
+  }, [isMobile]);
 
   return isMobile;
 }

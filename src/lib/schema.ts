@@ -8,10 +8,12 @@ export const gameEntrySchema = z.object({
   author: z.string().min(1),
   embedUrl: z.string().url(),
   thumbnail: z.string().min(1),
-  cabinet: z.object({
-    position: z.tuple([z.number(), z.number(), z.number()]),
-    rotationY: z.number(),
-  }),
+  cabinet: z
+    .object({
+      position: z.tuple([z.number(), z.number(), z.number()]),
+      rotationY: z.number(),
+    })
+    .optional(),
 });
 
 export const gamesArraySchema = z

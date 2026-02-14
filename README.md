@@ -43,3 +43,4 @@ npm run validate:games  # Validate game registry
 - **Keyboard** — Single centralized hook, movement via refs (zero re-renders)
 - **Proximity** — Per-frame distance + facing check in `useFrame`
 - **Data** — Server component loads `content/games.json`, passes to client canvas
+- **Layout Engine** — Auto-places games into scalable multi-room rows when cabinet coordinates are omitted

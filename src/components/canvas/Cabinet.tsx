@@ -14,10 +14,10 @@ import {
   CONTROL_PANEL_TILT,
   TMOLD_THICKNESS,
 } from '@/lib/constants';
-import type { GameEntry } from '@/types';
+import type { PlacedGameEntry } from '@/types';
 
 interface CabinetProps {
-  game: GameEntry;
+  game: PlacedGameEntry;
   isFocused: boolean;
 }
 
@@ -152,7 +152,7 @@ function CabinetBezel() {
   );
 }
 
-function CabinetMarquee({ title, isFocused }: { title: string; isFocused: boolean }) {
+function CabinetMarquee({ isFocused }: { isFocused: boolean }) {
   return (
     <group position={[0, 0.78, 0]} rotation={[MARQUEE_TILT, 0, 0]}>
       {/* Marquee panel */}
@@ -194,8 +194,6 @@ function CabinetTMolding({ isFocused }: { isFocused: boolean }) {
   const screenCenterY = SCREEN_Y_OFFSET;
   const screenCenterZ = SCREEN_Z_OFFSET;
   const bezelHalfH = SCREEN_HEIGHT / 2 + 0.03;
-  const bezelHalfW = SCREEN_WIDTH / 2 + 0.03;
-
   return (
     <>
       {/* Front-left vertical */}
@@ -247,7 +245,7 @@ export function Cabinet({ game, isFocused }: CabinetProps) {
       <CabinetBody isFocused={isFocused} />
       <CabinetControlPanel isFocused={isFocused} />
       <CabinetBezel />
-      <CabinetMarquee title={game.title} isFocused={isFocused} />
+      <CabinetMarquee isFocused={isFocused} />
       <CabinetTMolding isFocused={isFocused} />
 
       {/* Screen */}
