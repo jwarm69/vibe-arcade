@@ -3,6 +3,7 @@
 import { Suspense } from 'react';
 import { Sparkles } from '@react-three/drei';
 import { ArcadeFloor } from './ArcadeFloor';
+import { ArcadeWalls } from './ArcadeWalls';
 import { Cabinet } from './Cabinet';
 import { NeonSign } from './NeonSign';
 import { PlayerController } from './PlayerController';
@@ -25,6 +26,7 @@ export function ArcadeScene({ games, bounds }: ArcadeSceneProps) {
       <directionalLight position={[5, 8, 5]} intensity={0.3} color="#004400" />
 
       <ArcadeFloor bounds={bounds} />
+      <ArcadeWalls bounds={bounds} />
 
       <Suspense fallback={null}>
         <NeonSign />
@@ -43,7 +45,7 @@ export function ArcadeScene({ games, bounds }: ArcadeSceneProps) {
       {/* Faint floating green motes */}
       <Sparkles
         count={40}
-        scale={[20, 8, 20]}
+        scale={[bounds.floorSize * 0.8, 8, bounds.floorSize * 0.8]}
         size={1.5}
         speed={0.2}
         opacity={0.15}
