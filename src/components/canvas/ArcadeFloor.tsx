@@ -21,7 +21,7 @@ export function ArcadeFloor({ bounds }: ArcadeFloorProps) {
         <planeGeometry args={[bounds.floorSize, bounds.floorSize]} />
         <MeshReflectorMaterial
           resolution={512}
-          mixStrength={0.4}
+          mixStrength={0.55}
           blur={[300, 100]}
           roughness={0.85}
           color="#000a00"

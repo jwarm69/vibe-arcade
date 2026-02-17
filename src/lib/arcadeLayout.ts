@@ -6,7 +6,7 @@ const CABINET_SPACING_X = 3.2;
 const CABINET_ROW_OFFSET_Z = 6;
 const ROOM_DEPTH = 20;
 const ROOM_GAP_Z = 8;
-const BOUNDS_PADDING = 5;
+const BOUNDS_PADDING = 9;
 
 function autoPlaceCabinet(index: number) {
   const roomIndex = Math.floor(index / CABINETS_PER_ROOM);
@@ -60,7 +60,7 @@ function calcBounds(placedGames: PlacedGameEntry[]): ArcadeBounds {
 
   const spanX = maxX - minX;
   const spanZ = maxZ - minZ;
-  const floorSize = Math.max(30, spanX, spanZ) + BOUNDS_PADDING * 2;
+  const floorSize = Math.max(50, spanX, spanZ) + BOUNDS_PADDING * 2;
   const floorCenter: [number, number, number] = [
     (minX + maxX) / 2,
     0,

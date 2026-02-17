@@ -21,5 +21,26 @@
     "author": "Vibe Arcade",
     "embedUrl": "https://paper-toss-pwa.vercel.app",
     "thumbnail": "/thumbnails/paypa-taws.png"
+  },
+  {
+    "slug": "neon-pinball",
+    "title": "Neon Pinball",
+    "author": "jackwarman",
+    "embedUrl": "https://neon-pinball.vercel.app/",
+    "thumbnail": "/thumbnails/neon-pinball.png"
+  },
+  {
+    "slug": "neon-target-shoot",
+    "title": "Target Shoot",
+    "author": "jackwarman",
+    "embedUrl": "https://neon-target-shoot.vercel.app/",
+    "thumbnail": "/thumbnails/neon-target-shoot.png"
+  },
+  {
+    "slug": "archery",
+    "title": "Archery Range",
+    "author": "jackwarman",
+    "embedUrl": "https://archery-game-delta.vercel.app/",
+    "thumbnail": "/thumbnails/archery.png"
   }
 ]
