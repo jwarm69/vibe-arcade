@@ -23,7 +23,7 @@ export function ArcadeCanvas({ games }: ArcadeCanvasProps) {
     <div className="relative h-screen w-screen">
       <Canvas
         dpr={[1, 1.5]}
-        camera={{ fov: 70, near: 0.1, far: 100 }}
+        camera={{ fov: 70, near: 0.1, far: 150 }}
         style={{
           background: '#000a00',
           pointerEvents: isPlaying ? 'none' : 'auto',

@@ -6,7 +6,7 @@ const CABINET_SPACING_X = 3.2;
 const CABINET_ROW_OFFSET_Z = 6;
 const ROOM_DEPTH = 20;
 const ROOM_GAP_Z = 8;
-const BOUNDS_PADDING = 9;
+const BOUNDS_PADDING = 13;
 
 function autoPlaceCabinet(index: number) {
   const roomIndex = Math.floor(index / CABINETS_PER_ROOM);

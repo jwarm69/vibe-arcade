@@ -8,7 +8,7 @@ import { Cabinet } from './Cabinet';
 import { NeonSign } from './NeonSign';
 import { PlayerController } from './PlayerController';
 import { useArcadeStore } from '@/hooks/useArcadeStore';
-import { FOG_COLOR, FOG_NEAR, FOG_FAR } from '@/lib/constants';
+import { FOG_COLOR, FOG_NEAR, FOG_FAR, WALL_HEIGHT } from '@/lib/constants';
 import type { ArcadeBounds, PlacedGameEntry } from '@/types';
 
 interface ArcadeSceneProps {
@@ -44,8 +44,8 @@ export function ArcadeScene({ games, bounds }: ArcadeSceneProps) {
 
       {/* Faint floating green motes */}
       <Sparkles
-        count={80}
-        scale={[bounds.floorSize * 0.8, 14, bounds.floorSize * 0.8]}
+        count={120}
+        scale={[bounds.floorSize * 0.8, WALL_HEIGHT, bounds.floorSize * 0.8]}
         size={1.5}
         speed={0.2}
         opacity={0.15}
